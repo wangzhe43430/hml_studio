@@ -67,6 +67,7 @@
         .staff-section { padding: 40px 20px 80px 20px; max-width: 1000px; margin: 0 auto; }
 
         .category-title { text-align: center; font-size: 28px; font-weight: 600; color: var(--text-color); margin: 0 0 40px 0; letter-spacing: 1px; }
+        .category-desc { text-align: center; font-size: 16px; color: var(--text-secondary); margin: -20px 0 40px 0; }
 
         .card { background: var(--card-bg); backdrop-filter: blur(25px) saturate(150%); -webkit-backdrop-filter: blur(25px) saturate(150%); border: 1px solid var(--card-border); border-radius: 20px; padding: 50px; margin-bottom: 60px; box-shadow: var(--card-shadow); display: flex; align-items: center; gap: 60px; transition: transform 0.5s ease, box-shadow 0.5s ease; }
         .card.reverse { flex-direction: row-reverse; }
@@ -77,6 +78,47 @@
         .card-content .role { font-size: 14px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; display: block; }
         .card-content h3 { font-size: 40px; margin: 0 0 20px 0; }
         .card-content p { font-size: 18px; line-height: 1.6; color: rgba(0,0,0,0.7); margin-bottom: 0; }
+
+        /* 内测人员网格列表样式 */
+        .tester-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); 
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+
+        .tester-tag {
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 15px 10px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-color);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.02);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .tester-tag:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+        }
+
+        /* ！！！新增：官方工作人员专属淡红色标签 ！！！ */
+        .tester-tag.staff {
+            color: #ff5c5c; /* 精致的淡红色 */
+            font-weight: 600; /* 加粗一点点 */
+            border-color: rgba(255, 92, 92, 0.3); /* 玻璃边框透出淡淡的红光 */
+            background: rgba(255, 92, 92, 0.04); /* 背景带极其轻微的粉底 */
+        }
+        
+        .tester-tag.staff:hover {
+            border-color: rgba(255, 92, 92, 0.6);
+            box-shadow: 0 15px 30px rgba(255, 92, 92, 0.1); /* 悬浮时连阴影也是淡红色的 */
+        }
 
         .recruit-section { max-width: 1000px; margin: 0 auto 100px auto; padding: 0 20px; text-align: center; }
         .recruit-card { background: var(--card-bg); backdrop-filter: blur(25px) saturate(150%); -webkit-backdrop-filter: blur(25px) saturate(150%); border: 1px solid var(--card-border); border-radius: 20px; padding: 80px 40px; box-shadow: var(--card-shadow); transition: transform 0.5s ease, box-shadow 0.5s ease; }
@@ -106,6 +148,10 @@
             .card-img { flex: none; width: 100%; height: 320px; } 
             .card-content h3 { font-size: 28px; margin-bottom: 10px; }
             .card-content p { font-size: 16px; }
+            
+            .tester-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+            .tester-tag { font-size: 13px; padding: 12px 5px; }
+
             .recruit-card { padding: 50px 20px; }
             .recruit-card h2 { font-size: 28px; }
             .recruit-card p { font-size: 15px; margin-bottom: 30px; }
@@ -142,7 +188,7 @@
 
     <section class="staff-section" id="staff-list">
         
-        <!-- 核心团队排在最前面 -->
+        <!-- 核心团队 -->
         <h2 class="category-title reveal">核心制作团队</h2>
 
         <div class="card reveal">
@@ -167,7 +213,7 @@
             </div>
         </div>
 
-        <!-- 临时协力人员排在下面，通过 margin-top: 100px 形成清晰的区隔 -->
+        <!-- 临时协力人员 -->
         <h2 class="category-title reveal" style="margin-top: 100px;">临时协助 / 外包协力</h2>
         
         <div class="card reveal">
@@ -177,8 +223,26 @@
             <div class="card-content">
                 <span class="role">画师</span>
                 <h3>文雀</h3>
-                <p>“至高无上主宰巅峰の央美毕业者姐姐大人，创始人曰:近期2026年过年在老家带了对象使创世人大脑混乱，得知其攻略+好感度上涨详情后，着急的喊着:galgame里不是这样的!!!!不!!!亚美咯!!!，算了，反正我姐也NB，中央美术学院硕士毕业，我也是吃上好的了。amamamam。        注意!!!我姐对这个简介的评价啥也没说，应该是默认了”</p>
+                <!-- 这里完美保留了你写的神仙介绍！ -->
+                <p>“至高无上主宰巅峰の央美毕业者姐姐大人，创始人曰:近期2026年过年在老家带了对象使创世人大脑混乱，得知其攻略+好感度上涨详情后，着急的喊着:galgame里不是这样的!!!!不!!!亚美咯!!!，算了，反正我姐也NB，中央美术学院硕士毕业，我也是吃上好的了。amamamam。注意!!!我姐对这个简介的评价啥也没说，应该是默认了”</p>
             </div>
+        </div>
+
+        <!-- 内测参与人员网格 -->
+        <h2 class="category-title reveal" style="margin-top: 100px; margin-bottom: 20px;">内测参与人员</h2>
+        <p class="category-desc reveal">感谢以下玩家参与游戏开发环节！(开发者们除外*红字为工作室开发者身份参与不计入32人限额)。</p>
+
+        <div class="tester-grid reveal">
+            <!-- ！！！给你们俩的名字加上了 staff 类 ！！！ -->
+            <div class="tester-tag staff">王喆</div>
+            <div class="tester-tag staff">超级添翼</div>
+            <div class="tester-tag staff">文雀</div>
+            
+            <div class="tester-tag">杨馥嘉</div>
+            <div class="tester-tag">张子宣</div>
+            <div class="tester-tag">zb</div>
+            <div class="tester-tag">口口日月一</div>
+            <div class="tester-tag" style="color: var(--text-secondary); border-style: dashed;">虚位以待</div>
         </div>
 
     </section>
