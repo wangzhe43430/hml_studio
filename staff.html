@@ -52,26 +52,8 @@
         .hero h1 { font-size: 48px; font-weight: 600; letter-spacing: -0.005em; margin: 0 0 10px 0; background: var(--hero-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .hero h2 { font-size: 24px; font-weight: 400; color: var(--text-secondary); margin: 0; }
 
-        /* 包装盒 */
-        .scroll-wrapper {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 20;
-            transition: opacity 0.2s ease;
-        }
-
-        .scroll-indicator {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-decoration: none;
-            color: var(--text-secondary);
-            transition: color 0.3s ease;
-            animation: floatDown 2s ease-in-out infinite;
-        }
-
+        .scroll-wrapper { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 20; transition: opacity 0.2s ease; }
+        .scroll-indicator { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-secondary); transition: color 0.3s ease; animation: floatDown 2s ease-in-out infinite; }
         .scroll-indicator:hover { color: var(--text-color); }
         .scroll-indicator span { font-size: 11px; letter-spacing: 3px; margin-bottom: 5px; text-transform: uppercase; }
         .scroll-indicator svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
@@ -83,6 +65,8 @@
         }
 
         .staff-section { padding: 40px 20px 80px 20px; max-width: 1000px; margin: 0 auto; }
+
+        .category-title { text-align: center; font-size: 28px; font-weight: 600; color: var(--text-color); margin: 0 0 40px 0; letter-spacing: 1px; }
 
         .card { background: var(--card-bg); backdrop-filter: blur(25px) saturate(150%); -webkit-backdrop-filter: blur(25px) saturate(150%); border: 1px solid var(--card-border); border-radius: 20px; padding: 50px; margin-bottom: 60px; box-shadow: var(--card-shadow); display: flex; align-items: center; gap: 60px; transition: transform 0.5s ease, box-shadow 0.5s ease; }
         .card.reverse { flex-direction: row-reverse; }
@@ -117,6 +101,7 @@
             .hero h2 { font-size: 18px; line-height: 1.4; margin-top: 10px; }
             .scroll-wrapper { bottom: 30px; }
             .staff-section { padding: 20px 20px 40px 20px; }
+            .category-title { font-size: 24px; margin-bottom: 30px; } 
             .card { flex-direction: column !important; padding: 30px 20px; gap: 25px; }
             .card-img { flex: none; width: 100%; height: 320px; } 
             .card-content h3 { font-size: 28px; margin-bottom: 10px; }
@@ -156,6 +141,10 @@
     </header>
 
     <section class="staff-section" id="staff-list">
+        
+        <!-- 核心团队排在最前面 -->
+        <h2 class="category-title reveal">核心制作团队</h2>
+
         <div class="card reveal">
             <div class="card-img">
                 <img src="wangzhe.jpg" style="width:100%; height:100%; object-fit:cover; display:block;">
@@ -166,6 +155,7 @@
                 <p>“黑米粒的第一部游戏在2025年9月被提出，这个工作室因此而生。沈阳音乐学院附中在读，真入实名上网，再次非常感谢大家的支持以及期待，故事仍在书写......”</p>
             </div>
         </div>
+        
         <div class="card reveal reverse">
             <div class="card-img">
                 <img src="huangtianyi.jpg" style="width:100%; height:100%; object-fit:cover; display:block;">
@@ -176,6 +166,21 @@
                 <p>“沈阳音乐学院附中在读，网易音乐人。坚持每天打开琴盖练五分钟琴”</p>
             </div>
         </div>
+
+        <!-- 临时协力人员排在下面，通过 margin-top: 100px 形成清晰的区隔 -->
+        <h2 class="category-title reveal" style="margin-top: 100px;">临时协助 / 外包协力</h2>
+        
+        <div class="card reveal">
+            <div class="card-img">
+                <img src="wq.jpg" style="width:100%; height:100%; object-fit:cover; display:block;">
+            </div>
+            <div class="card-content">
+                <span class="role">画师</span>
+                <h3>文雀</h3>
+                <p>“至高无上主宰巅峰の央美毕业者姐姐大人，创始人曰:近期2026年过年在老家带了对象使创世人大脑混乱，得知其攻略+好感度上涨详情后，着急的喊着:galgame里不是这样的!!!!不!!!亚美咯!!!，算了，反正我姐也NB，中央美术学院硕士毕业，我也是吃上好的了。amamamam。        注意!!!我姐对这个简介的评价啥也没说，应该是默认了”</p>
+            </div>
+        </div>
+
     </section>
 
     <section class="recruit-section reveal">
