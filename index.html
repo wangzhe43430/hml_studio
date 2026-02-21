@@ -48,7 +48,6 @@
         .nav-links a { text-decoration: none; color: var(--text-color); opacity: 0.8; font-size: 13px; letter-spacing: 0.5px; transition: opacity 0.3s ease; }
         .nav-links a:hover { opacity: 1; }
 
-        /* 弹窗升级：更新文案后由于字数变多，依然保证居中 */
         .toast-popup {
             position: fixed;
             top: 24px; 
@@ -68,7 +67,9 @@
             opacity: 0;
             transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s ease;
             pointer-events: none; 
-            white-space: nowrap; /* 防止文字折行 */
+            text-align: center;
+            max-width: 90vw; 
+            word-wrap: break-word; 
         }
 
         .toast-popup.show {
@@ -80,7 +81,7 @@
         .hero h1 { font-size: 56px; font-weight: 600; letter-spacing: -0.005em; margin: 0 0 10px 0; background: var(--hero-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .hero h2 { font-size: 28px; font-weight: 400; color: var(--text-secondary); margin: 0 0 30px 0; }
 
-        .btn { background-color: var(--btn-bg); color: var(--btn-text); padding: 12px 24px; border-radius: 980px; text-decoration: none; font-size: 14px; font-weight: 500; transition: transform 0.3s ease, background 0.3s ease; display: inline-block; }
+        .btn { background-color: var(--btn-bg); color: var(--btn-text); padding: 12px 24px; border-radius: 980px; text-decoration: none; font-size: 14px; font-weight: 500; transition: transform 0.3s ease, background 0.3s ease; display: inline-block; cursor: pointer; border: none; font-family: inherit;}
         .btn:hover { background-color: var(--btn-hover); transform: scale(1.02); }
 
         .scroll-wrapper { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 20; transition: opacity 0.2s ease; }
@@ -155,15 +156,14 @@
             .card-content h3 { font-size: 26px; }
             .card-content p { font-size: 15px; }
             
-            .toast-popup { top: 40px; } 
+            .toast-popup { top: 40px; border-radius: 20px; padding: 12px 20px; } 
         }
     </style>
 </head>
 <body>
 
-    <!-- 顶部的无权限提示弹窗 -->
     <div class="toast-popup" id="toastPopup">
-        你没有权限访问/(ㄒoㄒ)/~~
+        <!-- 文字内容将由 JavaScript 动态填入 -->
     </div>
 
     <div class="liquid-bg"><div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div></div>
@@ -182,7 +182,7 @@
     <header class="hero">
         <h1>黑米粒工作室</h1>
         <h2>于2025年成立的新galgame制作工作室</h2>
-        <a href="#works" class="btn">探索作品?</a>
+        <button id="randomToastBtn" class="btn">探索作品?</button>
 
         <div class="scroll-wrapper" id="scrollFade">
             <a href="#announcement" class="scroll-indicator">
@@ -229,7 +229,6 @@
             <div class="card-content">
                 <h3>樱从苗来</h3>
                 <p>在这个虚拟的城市里，我们都在寻找一把能够撑起灵魂的伞。一个关于孤独、失去与最终自我和解的简短故事。(2026年3月内部测试)</p>
-                <!-- 第一个企划按钮加上 secret-btn 类 -->
                 <a href="#" class="link-more secret-btn">你不想进一步了解 &gt;</a>
             </div>
             <div class="card-img"></div>
@@ -238,7 +237,6 @@
             <div class="card-content">
                 <h3>???</h3>
                 <p>好吧，我确实要承认第二部的构造已经有了，但因为保密还是先这样展现出来吧(:</p>
-                <!-- 第二个企划按钮也加上 secret-btn 类 -->
                 <a href="#" class="link-more secret-btn">你不想进一步了解 &gt;</a>
             </div>
             <div class="card-img"></div>
@@ -246,7 +244,7 @@
     </section>
 
     <footer id="contact" class="reveal">
-        <p>你知道嘛，黑米粒的第一部游戏在2025年9月被提出，因此才有了黑米粒工作室，还有这个神人域名是我闲的没事注册的(真闲)</p>
+        <p>你知道嘛，如果你没点搜索作品?按钮，你会错过很多)确信</p>
         <p>Copyright © 2026 黑米粒工作室. 保留所有权利。</p>
         <p>开发者个人邮箱: wangzhe43439@hotmail.com</p>
     </footer>
@@ -276,29 +274,61 @@
             reveals.forEach(reveal => observer.observe(reveal));
         });
 
-        // ！！！全新的遣返与弹窗魔法 ！！！
-        const secretBtns = document.querySelectorAll('.secret-btn');
         const toastPopup = document.getElementById('toastPopup');
         let toastTimeout;
 
+        function showToast(message, duration = 3000) {
+            toastPopup.innerText = message; 
+            toastPopup.classList.add('show');
+            
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toastPopup.classList.remove('show');
+            }, duration);
+        }
+
+        const secretBtns = document.querySelectorAll('.secret-btn');
         secretBtns.forEach(btn => {
             btn.addEventListener('click', function(e) {
                 e.preventDefault(); 
-                
-                // 1. 发动遣返魔法：平滑滚动回页面最顶部
                 window.scrollTo({ top: 0, behavior: 'smooth' });
-                
-                // 2. 召唤胶囊：弹出无权限提示
-                toastPopup.classList.add('show');
-                
-                // 重置倒计时，因为滚动回去需要一定时间，这里设为停留 3.5 秒后收回
-                clearTimeout(toastTimeout);
-                toastTimeout = setTimeout(() => {
-                    toastPopup.classList.remove('show');
-                }, 3500);
+                setTimeout(() => {
+                    showToast("你没有权限访问/(ㄒoㄒ)/~~", 3500);
+                }, 300);
             });
+        });
+
+        // ！！！ 彻底升级：顺序播报彩蛋系统 ！！！
+        const randomToastBtn = document.getElementById('randomToastBtn');
+        
+        const funFacts = [
+            "你知道嘛，点这个按钮是不会跳转的，你得往下滑(可以继续点击触发更多)",
+            "你知道嘛，我这句话是废话",
+            "你知道嘛，做galgame其实有点花钱 (技术好技能点拉满除外)",
+            "你知道嘛，一开始第一部只有BE，后来貌似因为怕被骂成M，于是加上了“HE”",
+            "你知道嘛，黑米粒工作室其实在2022年就已经有了，是个我的世界工作室" ,
+            "你知道嘛，黑米粒的第一部游戏在2025年9月被提出，因此才有了现在复活的黑米粒工作室" ,
+            "你知道嘛，这个神人域名是我闲的没事注册的(真闲)" ,
+            "你知道嘛，你可以不用再点了，已经没有别的话可说了(懒"
+        ];
+
+        let currentFactIndex = 0; // 用来记录当前说到第几句了
+
+        randomToastBtn.addEventListener('click', function() {
+            // 获取当前顺序的句子
+            const currentMessage = funFacts[currentFactIndex];
+            
+            // 弹出当前句子
+            showToast(currentMessage, 3500);
+            
+            // 序号加1，为下一次点击做准备
+            currentFactIndex++;
+            
+            // 如果到底了，就从头开始循环
+            if (currentFactIndex >= funFacts.length) {
+                currentFactIndex = 0;
+            }
         });
     </script>
 </body>
 </html>
-
