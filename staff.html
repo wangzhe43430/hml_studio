@@ -107,17 +107,17 @@
             box-shadow: 0 15px 30px rgba(0,0,0,0.05);
         }
 
-        /* ！！！新增：官方工作人员专属淡红色标签 ！！！ */
+        /* 官方工作人员专属淡红色标签 */
         .tester-tag.staff {
-            color: #ff5c5c; /* 精致的淡红色 */
-            font-weight: 600; /* 加粗一点点 */
-            border-color: rgba(255, 92, 92, 0.3); /* 玻璃边框透出淡淡的红光 */
-            background: rgba(255, 92, 92, 0.04); /* 背景带极其轻微的粉底 */
+            color: #ff5c5c; 
+            font-weight: 600; 
+            border-color: rgba(255, 92, 92, 0.3); 
+            background: rgba(255, 92, 92, 0.04); 
         }
         
         .tester-tag.staff:hover {
             border-color: rgba(255, 92, 92, 0.6);
-            box-shadow: 0 15px 30px rgba(255, 92, 92, 0.1); /* 悬浮时连阴影也是淡红色的 */
+            box-shadow: 0 15px 30px rgba(255, 92, 92, 0.1); 
         }
 
         .recruit-section { max-width: 1000px; margin: 0 auto 100px auto; padding: 0 20px; text-align: center; }
@@ -157,6 +157,14 @@
             .recruit-card p { font-size: 15px; margin-bottom: 30px; }
         }
     </style>
+
+    <!-- ！！！ 重点：这里加入了 Vercel 网站分析统计代码 ！！！ -->
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+    <!-- ！！！ 统计代码结束 ！！！ -->
+
 </head>
 <body>
     <div class="liquid-bg"><div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div></div>
@@ -223,7 +231,6 @@
             <div class="card-content">
                 <span class="role">画师</span>
                 <h3>文雀</h3>
-                <!-- 这里完美保留了你写的神仙介绍！ -->
                 <p>“至高无上主宰巅峰の央美毕业者姐姐大人，创始人曰:近期2026年过年在老家带了对象使创世人大脑混乱，得知其攻略+好感度上涨详情后，着急的喊着:galgame里不是这样的!!!!不!!!亚美咯!!!，算了，反正我姐也NB，中央美术学院硕士毕业，我也是吃上好的了。amamamam。注意!!!我姐对这个简介的评价啥也没说，应该是默认了”</p>
             </div>
         </div>
@@ -233,7 +240,7 @@
         <p class="category-desc reveal">感谢以下玩家参与游戏开发环节！(开发者们除外*红字为工作室开发者身份参与不计入32人限额)。</p>
 
         <div class="tester-grid reveal">
-            <!-- ！！！给你们俩的名字加上了 staff 类 ！！！ -->
+            <!-- 给你们俩的名字加上了 staff 类 -->
             <div class="tester-tag staff">*王喆</div>
             <div class="tester-tag staff">*超级添翼</div>
             <div class="tester-tag staff">*文雀</div>
@@ -290,5 +297,3 @@
     </script>
 </body>
 </html>
-
-
