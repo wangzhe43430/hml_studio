@@ -159,6 +159,14 @@
             .toast-popup { top: 40px; border-radius: 20px; padding: 12px 20px; } 
         }
     </style>
+
+    <!-- ！！！ 重点：这里就是 Vercel 网站分析统计代码 ！！！ -->
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+    <!-- ！！！ 统计代码结束 ！！！ -->
+
 </head>
 <body>
 
@@ -315,16 +323,12 @@
         let currentFactIndex = 0; // 用来记录当前说到第几句了
 
         randomToastBtn.addEventListener('click', function() {
-            // 获取当前顺序的句子
             const currentMessage = funFacts[currentFactIndex];
             
-            // 弹出当前句子
             showToast(currentMessage, 3500);
             
-            // 序号加1，为下一次点击做准备
             currentFactIndex++;
             
-            // 如果到底了，就从头开始循环
             if (currentFactIndex >= funFacts.length) {
                 currentFactIndex = 0;
             }
@@ -332,5 +336,3 @@
     </script>
 </body>
 </html>
-
-
