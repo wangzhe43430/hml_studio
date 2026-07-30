@@ -280,32 +280,6 @@
         <p>开发者个人邮箱: me@galgame.help</p>
     </footer>
 
-    <script>
-        if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; 
-        window.scrollTo(0, 0);
-
-        // 渐隐逻辑
-        const scrollFadeElement = document.getElementById('scrollFade');
-        window.addEventListener('scroll', () => {
-            const scrollY = window.scrollY;
-            const opacity = Math.max(1 - scrollY / 150, 0);
-            
-            if (scrollFadeElement) {
-                scrollFadeElement.style.opacity = opacity;
-                scrollFadeElement.style.pointerEvents = opacity > 0 ? 'auto' : 'none';
-            }
-        });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const reveals = document.querySelectorAll('.reveal');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) entry.target.classList.add('active');
-                    else entry.target.classList.remove('active');
-                });
-            }, { threshold: 0.15 });
-            reveals.forEach(reveal => observer.observe(reveal));
-        });
-    </script>
+    <script defer src="main.js"></script>
 </body>
 </html>
