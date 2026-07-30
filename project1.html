@@ -31,6 +31,36 @@
         html { scroll-behavior: smooth; scroll-padding-top: 80px; }
         body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", STHeiti, Tahoma, sans-serif; background-color: var(--bg-color); color: var(--text-color); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 
+        /* 提示弹窗 (Toast) 样式 - 从首页移植 */
+        .toast-popup {
+            position: fixed;
+            top: 24px; 
+            left: 50%;
+            transform: translate(-50%, -150px); 
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(25px) saturate(150%);
+            -webkit-backdrop-filter: blur(25px) saturate(150%);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            color: var(--text-color);
+            padding: 12px 24px;
+            border-radius: 980px; 
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            z-index: 10000; 
+            opacity: 0;
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s ease;
+            pointer-events: none; 
+            text-align: center;
+            max-width: 90vw; 
+            word-wrap: break-word; 
+        }
+
+        .toast-popup.show {
+            transform: translate(-50%, 0); 
+            opacity: 1; 
+        }
+
         /* 背景流体动画 */
         .liquid-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; overflow: hidden; background: var(--bg-color); }
         .blob { position: absolute; filter: blur(90px); opacity: 0.8; animation: moveBlob 20s infinite alternate cubic-bezier(0.4, 0, 0.2, 1); }
@@ -73,7 +103,9 @@
 
         /* 项目特定人员网格 (自适应列数) */
         .project-staff-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
-        .staff-card { background: var(--card-bg); backdrop-filter: blur(15px); border: 1px solid var(--card-border); border-radius: 16px; padding: 25px; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.02); transition: transform 0.3s ease; }
+        
+        /* 将 .staff-card 同时支持 div 和 a 标签，并去除 a 标签的默认下划线 */
+        .staff-card { display: block; text-decoration: none; color: inherit; background: var(--card-bg); backdrop-filter: blur(15px); border: 1px solid var(--card-border); border-radius: 16px; padding: 25px; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.02); transition: transform 0.3s ease; }
         .staff-card:hover { transform: translateY(-3px); }
         .staff-avatar { width: 80px; height: 80px; border-radius: 50%; background: var(--card-img-bg); margin: 0 auto 15px auto; overflow: hidden; }
         .staff-avatar img { width: 100%; height: 100%; object-fit: cover; }
@@ -93,6 +125,7 @@
             .project-hero { padding-top: 100px; }
             .project-hero h1 { font-size: 40px; }
             .card { padding: 30px 20px; }
+            .toast-popup { top: 40px; border-radius: 20px; padding: 12px 20px; } 
         }
     </style>
 
@@ -103,6 +136,9 @@
     <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
+
+    <!-- 弹窗 HTML 结构 -->
+    <div class="toast-popup" id="toastPopup"></div>
 
     <div class="liquid-bg"><div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div></div>
 
@@ -170,15 +206,17 @@
         <h2 class="section-title">本项目参与人员</h2>
         <div class="project-staff-grid">
             
-            <div class="staff-card">
+            <!-- 1. 王喆 - 跳转 Bilibili -->
+            <a href="https://space.bilibili.com/2021589907" target="_blank" class="staff-card">
                 <div class="staff-avatar">
                     <img src="wangzhe.jpg" alt="王喆" onerror="this.style.display='none'">
                 </div>
                 <span class="staff-role">程序 / 剧本</span>
                 <h4 class="staff-name">王喆</h4>
-            </div>
+            </a>
 
-            <div class="staff-card">
+            <!-- 2. 二廿一 - 触发无账号彩蛋弹窗 -->
+            <div class="staff-card" id="secretStaffBtn" style="cursor: pointer;">
                 <div class="staff-avatar">
                     <img src="huangtianyi.jpg" alt="L1kE" onerror="this.style.display='none'">
                 </div>
@@ -186,21 +224,23 @@
                 <h4 class="staff-name">二廿一</h4>
             </div>
 
-            <div class="staff-card">
+            <!-- 3. 困困nyamuri - 跳转 抖音 -->
+            <a href="https://v.douyin.com/-2Fkhx_wrTY/" target="_blank" class="staff-card">
                 <div class="staff-avatar">
                     <img src="ms1.jpg" alt="困困nyamuri" onerror="this.style.display='none'">
                 </div>
                 <span class="staff-role">画师</span>
                 <h4 class="staff-name">困困nyamuri</h4>
-            </div>
+            </a>
 
-            <div class="staff-card">
+            <!-- 4. 凌酱酱酱酱鸭 - 跳转 Bilibili -->
+            <a href="https://space.bilibili.com/323047937" target="_blank" class="staff-card">
                 <div class="staff-avatar">
                     <img src="py1.jpg" alt="凌酱酱酱酱鸭" onerror="this.style.display='none'">
                 </div>
                 <span class="staff-role">配音</span>
                 <h4 class="staff-name">凌酱酱酱酱鸭</h4>
-            </div>
+            </a>
 
         </div>
     </section>
@@ -221,6 +261,28 @@
             }, { threshold: 0.1 });
             reveals.forEach(reveal => observer.observe(reveal));
         });
+
+        // 提示弹窗 (Toast) 逻辑
+        const toastPopup = document.getElementById('toastPopup');
+        let toastTimeout;
+
+        function showToast(message, duration = 3000) {
+            toastPopup.innerText = message; 
+            toastPopup.classList.add('show');
+            
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toastPopup.classList.remove('show');
+            }, duration);
+        }
+
+        // 监听 二廿一 的点击事件
+        const secretStaffBtn = document.getElementById('secretStaffBtn');
+        if(secretStaffBtn) {
+            secretStaffBtn.addEventListener('click', function() {
+                showToast("他还没有透露他任何的账户哦):", 3000);
+            });
+        }
     </script>
 </body>
 </html>
