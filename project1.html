@@ -31,7 +31,7 @@
         html { scroll-behavior: smooth; scroll-padding-top: 80px; }
         body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", STHeiti, Tahoma, sans-serif; background-color: var(--bg-color); color: var(--text-color); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 
-        /* 提示弹窗 (Toast) 样式 - 从首页移植 */
+        /* 提示弹窗 (Toast) 样式 */
         .toast-popup {
             position: fixed;
             top: 24px; 
@@ -121,7 +121,18 @@
         .reveal.active { opacity: 1; transform: translateY(0) scale(1); }
 
         @media (max-width: 768px) {
-            .project-staff-grid { grid-template-columns: 1fr 1fr; }
+            /* 1. 导航栏适配：缩小间距，强制文字不换行 */
+            .nav-container { padding: 0 10px; }
+            .nav-links { gap: 12px; } 
+            .nav-links a { font-size: 12px; white-space: nowrap; }
+
+            /* 2. 项目专属人员卡片适配：缩小内边距，强制长名字和职位不换行 */
+            .project-staff-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .staff-card { padding: 15px 10px; }
+            .staff-name { font-size: 15px; white-space: nowrap; }
+            .staff-role { font-size: 11px; white-space: nowrap; }
+
+            /* 3. 基础板块适配 */
             .project-hero { padding-top: 100px; }
             .project-hero h1 { font-size: 40px; }
             .card { padding: 30px 20px; }
@@ -215,14 +226,14 @@
                 <h4 class="staff-name">王喆</h4>
             </a>
 
-            <!-- 2. 二廿一 - 网易云 -->
+            <!-- 2. 二廿一 - 跳转网易云音乐 (已移除彩蛋触发器) -->
             <a href="https://163cn.tv/bb5cun8d" target="_blank" class="staff-card">
                 <div class="staff-avatar">
                     <img src="huangtianyi.jpg" alt="L1kE" onerror="this.style.display='none'">
                 </div>
                 <span class="staff-role">音乐制作</span>
                 <h4 class="staff-name">二廿一</h4>
-            </div>
+            </a>
 
             <!-- 3. 困困nyamuri - 跳转 抖音 -->
             <a href="https://v.douyin.com/-2Fkhx_wrTY/" target="_blank" class="staff-card">
