@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《樱从苗来》 - 黑米粒工作室</title>
+    <style>
+        /* 基础变量与全局样式 */
+        :root {
+            --bg-color: #fbfbfd;
+            --text-color: #1d1d1f;
+            --text-secondary: #86868b;
+            --link-color: #0066cc;
+            --nav-bg: rgba(251, 251, 253, 0.7);
+            --nav-border: rgba(0, 0, 0, 0.05);
+            --hero-gradient: linear-gradient(180deg, #1d1d1f 0%, #86868b 100%);
+            --btn-bg: #1d1d1f;
+            --btn-text: #ffffff;
+            --btn-hover: #000000;
+            --card-bg: rgba(255, 255, 255, 0.6);
+            --card-border: rgba(255, 255, 255, 0.8);
+            --card-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            --card-shadow-hover: 0 30px 60px rgba(0,0,0,0.08);
+            --card-img-bg: rgba(0, 0, 0, 0.04);
+            --footer-bg: rgba(245, 245, 247, 0.6);
+            --blob-1: #dbeafe; 
+            --blob-2: #f3e8ff; 
+            --blob-3: #e0e7ff; 
+        }
+
+        html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+        body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", STHeiti, Tahoma, sans-serif; background-color: var(--bg-color); color: var(--text-color); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+        /* 背景流体动画 */
+        .liquid-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; overflow: hidden; background: var(--bg-color); }
+        .blob { position: absolute; filter: blur(90px); opacity: 0.8; animation: moveBlob 20s infinite alternate cubic-bezier(0.4, 0, 0.2, 1); }
+        .blob-1 { width: 600px; height: 600px; background: var(--blob-1); top: -100px; left: -100px; border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+        .blob-2 { width: 500px; height: 500px; background: var(--blob-2); bottom: -50px; right: -100px; animation-delay: -5s; border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+        .blob-3 { width: 400px; height: 400px; background: var(--blob-3); top: 40%; left: 50%; animation-delay: -10s; border-radius: 50%; }
+
+        @keyframes moveBlob {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            50% { transform: translate(100px, 50px) scale(1.1) rotate(90deg); }
+            100% { transform: translate(-50px, 150px) scale(0.9) rotate(180deg); }
+        }
+
+        /* 导航栏 */
+        nav { position: fixed; top: 0; width: 100%; height: 56px; background: var(--nav-bg); backdrop-filter: saturate(180%) blur(30px); -webkit-backdrop-filter: saturate(180%) blur(30px); z-index: 9999; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid var(--nav-border); }
+        .nav-container { display: flex; align-items: center; justify-content: center; width: 100%; max-width: 1200px; padding: 0 20px; }
+        .nav-links { display: flex; gap: 40px; }
+        .nav-links a { text-decoration: none; color: var(--text-color); opacity: 0.8; font-size: 13px; letter-spacing: 0.5px; transition: opacity 0.3s ease; }
+        .nav-links a:hover { opacity: 1; font-weight: 500; }
+
+        /* 项目头部 */
+        .project-hero { position: relative; padding: 150px 20px 80px 20px; text-align: center; max-width: 800px; margin: 0 auto; animation: fadeInUp 1.5s ease; }
+        .project-hero h1 { font-size: 56px; font-weight: 600; letter-spacing: -0.005em; margin: 0 0 20px 0; background: var(--hero-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .status-badge { display: inline-block; background: rgba(0, 102, 204, 0.1); color: var(--link-color); border: 1px solid rgba(0, 102, 204, 0.2); padding: 6px 16px; border-radius: 980px; font-size: 14px; font-weight: 600; margin-bottom: 30px; }
+        
+        /* 章节通用样式 */
+        .section-container { max-width: 1000px; margin: 0 auto 100px auto; padding: 0 20px; }
+        .section-title { font-size: 32px; font-weight: 600; margin-bottom: 40px; text-align: center; }
+
+        /* 卡片通用样式 */
+        .card { background: var(--card-bg); backdrop-filter: blur(25px) saturate(150%); -webkit-backdrop-filter: blur(25px) saturate(150%); border: 1px solid var(--card-border); border-radius: 20px; padding: 50px; box-shadow: var(--card-shadow); transition: transform 0.5s ease, box-shadow 0.5s ease; }
+        .card:hover { transform: translateY(-5px); box-shadow: var(--card-shadow-hover); }
+
+        /* 开发近况时间线 */
+        .timeline-item { border-left: 2px solid var(--nav-border); padding-left: 30px; position: relative; margin-bottom: 40px; }
+        .timeline-item::before { content: ''; position: absolute; left: -7px; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: var(--text-color); }
+        .timeline-date { font-size: 14px; color: var(--text-secondary); font-weight: 600; margin-bottom: 10px; }
+        .timeline-content h4 { margin: 0 0 10px 0; font-size: 20px; }
+        .timeline-content p { margin: 0; color: rgba(0,0,0,0.7); line-height: 1.6; }
+
+        /* 项目特定人员网格 (自适应列数) */
+        .project-staff-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+        .staff-card { background: var(--card-bg); backdrop-filter: blur(15px); border: 1px solid var(--card-border); border-radius: 16px; padding: 25px; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.02); transition: transform 0.3s ease; }
+        .staff-card:hover { transform: translateY(-3px); }
+        .staff-avatar { width: 80px; height: 80px; border-radius: 50%; background: var(--card-img-bg); margin: 0 auto 15px auto; overflow: hidden; }
+        .staff-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .staff-role { font-size: 12px; color: var(--text-secondary); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 5px; }
+        .staff-name { font-size: 18px; font-weight: 600; margin: 0; }
+
+        /* 底部 */
+        footer { background: var(--footer-bg); backdrop-filter: blur(20px); padding: 40px 20px; text-align: center; color: var(--text-secondary); font-size: 12px; border-top: 1px solid var(--nav-border); }
+
+        /* 动画与响应式 */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .reveal { opacity: 0; transform: translateY(60px) scale(0.98); transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.8s ease; }
+        .reveal.active { opacity: 1; transform: translateY(0) scale(1); }
+
+        @media (max-width: 768px) {
+            .project-staff-grid { grid-template-columns: 1fr 1fr; }
+            .project-hero { padding-top: 100px; }
+            .project-hero h1 { font-size: 40px; }
+            .card { padding: 30px 20px; }
+        }
+    </style>
+
+    <!-- Vercel 网站分析统计代码 -->
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+
+    <div class="liquid-bg"><div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div></div>
+
+    <nav>
+        <div class="nav-container">
+            <div class="nav-links">
+                <a href="index.html">返回首页</a>
+                <a href="#synopsis">故事简介</a>
+                <a href="#devlog">开发近况</a>
+                <a href="#staff">本项目制作组</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 项目头部 -->
+    <header class="project-hero">
+        <div class="status-badge">正在开发中 / Demo版筹备中</div>
+        <h1>樱从苗来</h1>
+        <p style="font-size: 20px; color: var(--text-secondary); line-height: 1.6;">
+            在这个虚拟的城市里，我们都在寻找一把能够撑起灵魂的伞。<br>一个关于孤独、失去与最终自我和解的简短故事。
+        </p>
+    </header>
+
+    <!-- 游戏简介 -->
+    <section class="section-container reveal" id="synopsis">
+        <div class="card">
+            <h3 style="font-size: 24px; margin-top: 0;">故事背景</h3>
+            <p style="font-size: 16px; line-height: 1.8; color: rgba(0,0,0,0.8);">
+                这里可以写一段详细的游戏简介。比如主角的故事，遇到了什么人，发生了什么事。
+                目前 Demo 版本正在紧锣密鼓地制作中，敬请期待。
+                <br><br>
+                “我们用文字、色彩或是代码，去讲述那些关于孤独、失去与和解的故事。”
+            </p>
+        </div>
+    </section>
+
+    <!-- 开发进度日志 -->
+    <section class="section-container reveal" id="devlog">
+        <h2 class="section-title">开发近况</h2>
+        <div class="card" style="padding: 40px 50px;">
+            <div class="timeline-item">
+                <div class="timeline-date">2026年3月 - 至今</div>
+                <div class="timeline-content">
+                    <h4>Demo 剧本打磨与立绘绘制</h4>
+                    <p>目前核心程序框架已搭建完毕，正在进行首批角色立绘的实装以及序章剧本的最后润色。我们决定推迟原定的内部测试时间，以确保给大家呈现更好的品质。</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2026年2月21日</div>
+                <div class="timeline-content">
+                    <h4>内测玩家招募开启</h4>
+                    <p>正式向外发布了 32 人限额的内部测试招募问卷，收到了大家的积极反馈，感谢支持！</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2025年9月</div>
+                <div class="timeline-content">
+                    <h4>企划正式立项</h4>
+                    <p>《樱从苗来》概念首次被提出，黑米粒工作室因此复活并正式确立制作方向。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 本项目专职制作组 -->
+    <section class="section-container reveal" id="staff">
+        <h2 class="section-title">本项目参与人员</h2>
+        <div class="project-staff-grid">
+            
+            <div class="staff-card">
+                <div class="staff-avatar">
+                    <img src="wangzhe.jpg" alt="王喆" onerror="this.style.display='none'">
+                </div>
+                <span class="staff-role">制作人 / 音乐</span>
+                <h4 class="staff-name">王喆</h4>
+            </div>
+
+            <div class="staff-card">
+                <div class="staff-avatar">
+                    <img src="huangtianyi.jpg" alt="L1kE" onerror="this.style.display='none'">
+                </div>
+                <span class="staff-role">音乐制作</span>
+                <h4 class="staff-name">L1kE</h4>
+            </div>
+
+            <div class="staff-card">
+                <div class="staff-avatar">
+                    <img src="ms1.jpg" alt="困困nyamuri" onerror="this.style.display='none'">
+                </div>
+                <span class="staff-role">画师</span>
+                <h4 class="staff-name">困困nyamuri</h4>
+            </div>
+
+            <div class="staff-card">
+                <div class="staff-avatar">
+                    <img src="py1.jpg" alt="凌酱酱酱酱鸭" onerror="this.style.display='none'">
+                </div>
+                <span class="staff-role">配音</span>
+                <h4 class="staff-name">凌酱酱酱酱鸭</h4>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <p>Copyright © 2026 黑米粒工作室. 保留所有权利。</p>
+        <p>开发者个人邮箱: me@galgame.help</p>
+    </footer>
+
+    <script>
+        // 滚动动画监听
+        document.addEventListener('DOMContentLoaded', function() {
+            const reveals = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('active');
+                });
+            }, { threshold: 0.1 });
+            reveals.forEach(reveal => observer.observe(reveal));
+        });
+    </script>
+</body>
+</html>
