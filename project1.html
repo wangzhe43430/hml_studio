@@ -250,39 +250,6 @@
         <p>开发者个人邮箱: me@galgame.help</p>
     </footer>
 
-    <script>
-        // 滚动动画监听
-        document.addEventListener('DOMContentLoaded', function() {
-            const reveals = document.querySelectorAll('.reveal');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) entry.target.classList.add('active');
-                });
-            }, { threshold: 0.1 });
-            reveals.forEach(reveal => observer.observe(reveal));
-        });
-
-        // 提示弹窗 (Toast) 逻辑
-        const toastPopup = document.getElementById('toastPopup');
-        let toastTimeout;
-
-        function showToast(message, duration = 3000) {
-            toastPopup.innerText = message; 
-            toastPopup.classList.add('show');
-            
-            clearTimeout(toastTimeout);
-            toastTimeout = setTimeout(() => {
-                toastPopup.classList.remove('show');
-            }, duration);
-        }
-
-        // 监听 二廿一 的点击事件
-        const secretStaffBtn = document.getElementById('secretStaffBtn');
-        if(secretStaffBtn) {
-            secretStaffBtn.addEventListener('click', function() {
-                showToast("他还没有透露他任何的账户哦):", 3000);
-            });
-        }
-    </script>
+    <script defer src="main.js"></script>
 </body>
 </html>
