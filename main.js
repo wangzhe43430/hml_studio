@@ -1,12 +1,10 @@
-// main.js - 黑米粒工作室全站通用脚本
 
-// 1. 禁用默认的滚动记忆，确保每次刷新都在顶部
 if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual'; 
 }
 window.scrollTo(0, 0);
 
-// 2. 向下滚动的提示渐隐逻辑 (适配 index.html 和 staff.html)
+
 const scrollFadeElement = document.getElementById('scrollFade');
 if (scrollFadeElement) {
     window.addEventListener('scroll', () => {
@@ -17,25 +15,25 @@ if (scrollFadeElement) {
     });
 }
 
-// 3. 滚动出现动画 (全站防抽搐绝育版)
+
 document.addEventListener('DOMContentLoaded', function() {
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('active');
-                observer.unobserve(entry.target); // 重点：触发一次后立即解除绑定
+                observer.unobserve(entry.target); 
             }
         });
     }, { threshold: 0.15 });
     reveals.forEach(reveal => observer.observe(reveal));
 });
 
-// 4. Toast 弹窗基础逻辑 (适配全站需要弹窗的地方)
+
 const toastPopup = document.getElementById('toastPopup');
 let toastTimeout;
 function showToast(message, duration = 3000) {
-    if (!toastPopup) return; // 如果当前页面没有弹窗元素，就不执行
+    if (!toastPopup) return;
     toastPopup.innerText = message; 
     toastPopup.classList.add('show');
     
@@ -45,7 +43,7 @@ function showToast(message, duration = 3000) {
     }, duration);
 }
 
-// 5. 首页 - 无权限彩蛋按钮拦截
+
 const secretBtns = document.querySelectorAll('.secret-btn');
 if (secretBtns.length > 0) {
     secretBtns.forEach(btn => {
@@ -59,7 +57,7 @@ if (secretBtns.length > 0) {
     });
 }
 
-// 6. 首页 - 顺序播报彩蛋系统
+
 const randomToastBtn = document.getElementById('randomToastBtn');
 if (randomToastBtn) {
     const funFacts = [
@@ -82,7 +80,7 @@ if (randomToastBtn) {
     });
 }
 
-// 7. 项目页 - 二廿一没有账号提示彩蛋
+
 const secretStaffBtn = document.getElementById('secretStaffBtn');
 if (secretStaffBtn) {
     secretStaffBtn.addEventListener('click', function() {
