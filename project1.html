@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>第一部作品 - 黑米粒工作室</title>
     <style>
-        /* 基础变量与全局样式 */
         :root {
             --bg-color: #fbfbfd;
             --text-color: #1d1d1f;
@@ -31,7 +30,7 @@
         html { scroll-behavior: smooth; scroll-padding-top: 80px; }
         body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", STHeiti, Tahoma, sans-serif; background-color: var(--bg-color); color: var(--text-color); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 
-        /* 提示弹窗 (Toast) 样式 */
+
         .toast-popup {
             position: fixed;
             top: 24px; 
@@ -61,7 +60,6 @@
             opacity: 1; 
         }
 
-        /* 背景流体动画 */
         .liquid-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; overflow: hidden; background: var(--bg-color); }
         .blob { position: absolute; filter: blur(90px); opacity: 0.8; animation: moveBlob 20s infinite alternate cubic-bezier(0.4, 0, 0.2, 1); }
         .blob-1 { width: 600px; height: 600px; background: var(--blob-1); top: -100px; left: -100px; border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
@@ -74,37 +72,30 @@
             100% { transform: translate(-50px, 150px) scale(0.9) rotate(180deg); }
         }
 
-        /* 导航栏 */
         nav { position: fixed; top: 0; width: 100%; height: 56px; background: var(--nav-bg); backdrop-filter: saturate(180%) blur(30px); -webkit-backdrop-filter: saturate(180%) blur(30px); z-index: 9999; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid var(--nav-border); }
         .nav-container { display: flex; align-items: center; justify-content: center; width: 100%; max-width: 1200px; padding: 0 20px; }
         .nav-links { display: flex; gap: 40px; }
         .nav-links a { text-decoration: none; color: var(--text-color); opacity: 0.8; font-size: 13px; letter-spacing: 0.5px; transition: opacity 0.3s ease; }
         .nav-links a:hover { opacity: 1; font-weight: 500; }
 
-        /* 项目头部 */
         .project-hero { position: relative; padding: 150px 20px 80px 20px; text-align: center; max-width: 800px; margin: 0 auto; animation: fadeInUp 1.5s ease; }
         .project-hero h1 { font-size: 56px; font-weight: 600; letter-spacing: -0.005em; margin: 0 0 20px 0; background: var(--hero-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .status-badge { display: inline-block; background: rgba(0, 102, 204, 0.1); color: var(--link-color); border: 1px solid rgba(0, 102, 204, 0.2); padding: 6px 16px; border-radius: 980px; font-size: 14px; font-weight: 600; margin-bottom: 30px; }
         
-        /* 章节通用样式 */
         .section-container { max-width: 1000px; margin: 0 auto 100px auto; padding: 0 20px; }
         .section-title { font-size: 32px; font-weight: 600; margin-bottom: 40px; text-align: center; }
 
-        /* 卡片通用样式 */
         .card { background: var(--card-bg); backdrop-filter: blur(25px) saturate(150%); -webkit-backdrop-filter: blur(25px) saturate(150%); border: 1px solid var(--card-border); border-radius: 20px; padding: 50px; box-shadow: var(--card-shadow); transition: transform 0.5s ease, box-shadow 0.5s ease; }
         .card:hover { transform: translateY(-5px); box-shadow: var(--card-shadow-hover); }
 
-        /* 开发近况时间线 */
         .timeline-item { border-left: 2px solid var(--nav-border); padding-left: 30px; position: relative; margin-bottom: 40px; }
         .timeline-item::before { content: ''; position: absolute; left: -7px; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: var(--text-color); }
         .timeline-date { font-size: 14px; color: var(--text-secondary); font-weight: 600; margin-bottom: 10px; }
         .timeline-content h4 { margin: 0 0 10px 0; font-size: 20px; }
         .timeline-content p { margin: 0; color: rgba(0,0,0,0.7); line-height: 1.6; }
 
-        /* 项目特定人员网格 (自适应列数) */
         .project-staff-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
         
-        /* 将 .staff-card 同时支持 div 和 a 标签，并去除 a 标签的默认下划线 */
         .staff-card { display: block; text-decoration: none; color: inherit; background: var(--card-bg); backdrop-filter: blur(15px); border: 1px solid var(--card-border); border-radius: 16px; padding: 25px; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.02); transition: transform 0.3s ease; }
         .staff-card:hover { transform: translateY(-3px); }
         .staff-avatar { width: 80px; height: 80px; border-radius: 50%; background: var(--card-img-bg); margin: 0 auto 15px auto; overflow: hidden; }
@@ -112,27 +103,22 @@
         .staff-role { font-size: 12px; color: var(--text-secondary); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 5px; }
         .staff-name { font-size: 18px; font-weight: 600; margin: 0; }
 
-        /* 底部 */
         footer { background: var(--footer-bg); backdrop-filter: blur(20px); padding: 40px 20px; text-align: center; color: var(--text-secondary); font-size: 12px; border-top: 1px solid var(--nav-border); }
 
-        /* 动画与响应式 */
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         .reveal { opacity: 0; transform: translateY(60px) scale(0.98); transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.8s ease; }
         .reveal.active { opacity: 1; transform: translateY(0) scale(1); }
 
         @media (max-width: 768px) {
-            /* 1. 导航栏适配：缩小间距，强制文字不换行 */
             .nav-container { padding: 0 10px; }
             .nav-links { gap: 12px; } 
             .nav-links a { font-size: 12px; white-space: nowrap; }
 
-            /* 2. 项目专属人员卡片适配：缩小内边距，强制长名字和职位不换行 */
             .project-staff-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
             .staff-card { padding: 15px 10px; }
             .staff-name { font-size: 15px; white-space: nowrap; }
             .staff-role { font-size: 11px; white-space: nowrap; }
 
-            /* 3. 基础板块适配 */
             .project-hero { padding-top: 100px; }
             .project-hero h1 { font-size: 40px; }
             .card { padding: 30px 20px; }
@@ -140,7 +126,7 @@
         }
     </style>
 
-    <!-- Vercel 网站分析统计代码 -->
+    <!-- Vercel网站分析统计 -->
     <script>
         window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
     </script>
@@ -148,7 +134,6 @@
 </head>
 <body>
 
-    <!-- 弹窗 HTML 结构 -->
     <div class="toast-popup" id="toastPopup"></div>
 
     <div class="liquid-bg"><div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div></div>
@@ -164,7 +149,6 @@
         </div>
     </nav>
 
-    <!-- 项目头部 -->
     <header class="project-hero">
         <div class="status-badge">正在开发中 / Demo版筹备中</div>
         <h1>第一部作品</h1>
@@ -173,7 +157,6 @@
         </p>
     </header>
 
-    <!-- 游戏简介 -->
     <section class="section-container reveal" id="synopsis">
         <div class="card">
             <h3 style="font-size: 24px; margin-top: 0;">故事背景</h3>
@@ -184,7 +167,6 @@
         </div>
     </section>
 
-    <!-- 开发进度日志 -->
     <section class="section-container reveal" id="devlog">
         <h2 class="section-title">开发近况</h2>
         <div class="card" style="padding: 40px 50px;">
@@ -212,12 +194,11 @@
         </div>
     </section>
 
-    <!-- 本项目专职制作组 -->
     <section class="section-container reveal" id="staff">
         <h2 class="section-title">本项目参与人员</h2>
         <div class="project-staff-grid">
             
-            <!-- 1. 王喆 - 跳转 Bilibili -->
+            <!-- 1.Bilibili -->
             <a href="https://space.bilibili.com/2021589907" target="_blank" class="staff-card">
                 <div class="staff-avatar">
                     <img src="wangzhe.jpg" alt="王喆" onerror="this.style.display='none'">
@@ -226,7 +207,7 @@
                 <h4 class="staff-name">王喆</h4>
             </a>
 
-            <!-- 2. 二廿一 - 跳转网易云音乐 (已移除彩蛋触发器) -->
+            <!-- 2.网易云音乐 (移除彩蛋) -->
             <a href="https://163cn.tv/bb5cun8d" target="_blank" class="staff-card">
                 <div class="staff-avatar">
                     <img src="huangtianyi.jpg" alt="L1kE" onerror="this.style.display='none'">
@@ -235,7 +216,7 @@
                 <h4 class="staff-name">二廿一</h4>
             </a>
 
-            <!-- 3. 困困nyamuri - 跳转 抖音 -->
+            <!-- 3.抖音 -->
             <a href="https://v.douyin.com/-2Fkhx_wrTY/" target="_blank" class="staff-card">
                 <div class="staff-avatar">
                     <img src="ms1.jpg" alt="困困nyamuri" onerror="this.style.display='none'">
@@ -244,7 +225,7 @@
                 <h4 class="staff-name">困困nyamuri</h4>
             </a>
 
-            <!-- 4. 凌酱酱酱酱鸭 - 跳转 Bilibili -->
+            <!-- 4.Bilibili -->
             <a href="https://space.bilibili.com/323047937" target="_blank" class="staff-card">
                 <div class="staff-avatar">
                     <img src="py1.jpg" alt="凌酱酱酱酱鸭" onerror="this.style.display='none'">
